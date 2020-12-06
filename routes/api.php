@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoriaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,4 +28,9 @@ Route::group(['prefix' => 'Auth'], function () {
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('user',[AuthController::class,'user'] );
     Route::get('logout', [AuthController::class,'logout']);
+
+    //Ruta de categorias 
+    Route::group(['prefix'=>'category'], function(){
+        Route::post('add', [CategoriaController::class,'Create']);
+    });
 });
