@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\ProductoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,7 @@ use App\Http\Controllers\CategoriaController;
     return $request->user();
 }); */
 
+Route::get('product', [ProductoController::class, 'GetProductos']);
 Route::group(['prefix' => 'Auth'], function () {
     Route::post('login',[AuthController::class,'login']);
     Route::post('signup',[AuthController::class,'signup']);
@@ -28,6 +30,12 @@ Route::group(['prefix' => 'Auth'], function () {
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('user',[AuthController::class,'user'] );
     Route::get('logout', [AuthController::class,'logout']);
+
+
+    //ruta de productos que requieren login
+    Route::group(['prefix'=>'product'],function(){
+        Route::post('add',[ProductoController::class,'Create']);
+    });
 
     //Ruta de categorias 
     Route::group(['prefix'=>'category'], function(){

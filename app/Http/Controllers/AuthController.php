@@ -21,6 +21,7 @@ class AuthController extends Controller
         if (!Auth::attempt($attr)) {
             return $this->error('Credentials mismatch', 401);
         }
+        Auth::attempt(['email' => $attr['email'], 'password' => $attr['password']]);
 
         return $this->token($this->getPersonalAccessToken(),'Welcome');
     }
@@ -43,7 +44,7 @@ class AuthController extends Controller
             return $this->error('Error', 400);
         }
 
-        Auth::attempt(['email' => $attr['email'], 'password' => $attr['password']]);
+        
 
         
     }

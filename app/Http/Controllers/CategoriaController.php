@@ -11,6 +11,7 @@ class CategoriaController extends Controller
 {
     use ApiResponser;
   public function Create(Request $req){
+   
       $req->validate([
           'nombre'=>'required|string'
       ]);
