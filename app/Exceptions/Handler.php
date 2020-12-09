@@ -40,5 +40,14 @@ class Handler extends ExceptionHandler
             //
         });
     }
-    
+    public function render($request, Throwable $exception)
+    {
+        if($exception instanceOf RouteNotFoundException){
+            return $this->error($exception->getMessage(), 500);
+        }
+
+        return $this->error($exception->getMessage(), $exception->status);
+
+        // return parent::render($request, $exception);
+    }
 }
