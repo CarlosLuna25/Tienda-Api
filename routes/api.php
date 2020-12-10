@@ -25,8 +25,9 @@ Route::group(['prefix'=>'product'],function(){
     Route::get('/', [ProductoController::class, 'GetProductos']);
     Route::get('/{id}', [ProductoController::class, 'GetProducto']);
     Route::get('/user/{nickname}',[ProductoController::class, 'GetUserProducts']); //obtener productos por usuario
-
+    Route::get('/category/{nombre}',[ProductoController::class, 'GetCategoryProducts']);
 });
+Route::get('/category',[CategoriaController::class, 'GetCategories']);
 
 Route::group(['prefix' => 'Auth'], function () {
     Route::post('login',[AuthController::class,'login']);
@@ -43,6 +44,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::group(['prefix'=>'product'],function(){
         Route::post('add',[ProductoController::class,'Create']);
         Route::put('update',[ProductoController::class, 'update']);
+        Route::delete('delete', [ProductoController::class, 'delete']);
         //post imagen de producto
         Route::post('upload/{id}',[ProductoController::class,'image']);
     });
@@ -50,5 +52,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     //Ruta de categorias 
     Route::group(['prefix'=>'category'], function(){
         Route::post('add', [CategoriaController::class,'Create']);
+        Route::put('update',[CategoriaController::class, 'update']);
+        Route::delete('delete', [CategoriaController::class, 'delete']);
+      
     });
 });
