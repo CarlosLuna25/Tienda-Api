@@ -24,6 +24,7 @@ use App\Http\Controllers\ProductoController;
 Route::group(['prefix'=>'product'],function(){
     Route::get('/', [ProductoController::class, 'GetProductos']);
     Route::get('/{id}', [ProductoController::class, 'GetProducto']);
+    Route::get('/user/{nickname}',[ProductoController::class, 'GetUserProducts']); //obtener productos por usuario
 
 });
 

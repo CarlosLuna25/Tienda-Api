@@ -9,13 +9,33 @@ use App\Traits\ApiResponser;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use App\Models\categoria;
+use App\Models\User;
 
 class ProductoController extends Controller
 {
     use ApiResponser;
 
 
+  public function GetUserProducts($nickname){
+    $user= User::where('nickname',$nickname)->first();
+    
   
+   
+    if ($user){
+      $data= producto::where('user_id', $user->id)->orderByDesc('id')
+         ->get();
+      if($data){
+        return $this->success($data,"Records Found", 200);
+      }else{
+        return $this->error("Products not found",400);
+      }
+    }else{
+      return $this->error("User not found",400);
+    }
+   
+
+
+  }
   public function GetProducto($req){
     
    $data= producto::find($req);
