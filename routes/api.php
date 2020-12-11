@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,11 @@ Route::group(['prefix'=>'product'],function(){
     Route::get('/user/{nickname}',[ProductoController::class, 'GetUserProducts']); //obtener productos por usuario
     Route::get('/category/{nombre}',[ProductoController::class, 'GetCategoryProducts']);
 });
+
+//obtener datos de un usuario 
+Route::get('user/{nickname}',[UserController::class, 'GetUserData']);
+
+
 Route::get('/category',[CategoriaController::class, 'GetCategories']);
 
 Route::group(['prefix' => 'Auth'], function () {
