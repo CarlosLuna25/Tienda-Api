@@ -21,4 +21,18 @@ class UserController extends Controller
            return $this->success($user, "User Found", 200);
         }
     }
+
+    public function GetAllUsers(){
+        if (Auth::user()->user_type === 'admin') {
+            $users= User::all();
+            if ($users && count($users)>=1){
+                return $this->success($users, "Users found", 200);
+            }else{
+                return $this->success(null,"no users registered");
+            }
+            
+          } else {
+            return $this->error('Unathorized User', 401);
+          }
+    }
 }
